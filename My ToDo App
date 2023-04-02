@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My ToDo App</title><meta charset="UTF-8">
+
+
+<script>{
+   function addItem(){
+      // todo변수에 id가 item인 input요소를 가져온다.
+      let todo = document.getElementById("item");
+      // list변수에 id가 todolist인 ui요소를 가져온다.
+       let list = document.getElementById("todolist");
+      
+      // listitem변수가 li요소가 된다. 
+        let listitem = document.createElement("li");
+      //xbtn변수가 button요소가 된다.
+       let xbtn = document.createElement("button");
+      
+       //listitem의 class이름이 list-item이 된다.
+        listitem.className = "list-item";
+        //xbtn의 class이름이 btn-close가 된다.
+       xbtn.className = "btn-close"
+       
+       xbtn.onclick = function(e){
+          let pnode = e.target.parentNode;
+          list.removeChild(pnode);
+       }
+      
+       listitem.innerText = todo.value;
+       list.appendChild(listitem);
+       listitem.appendChild(xbtn);   
+       
+       //input을 공백으로 했을 때 "li"에 빈칸으로 추가하기  
+       if (listitem.innerText == "") {
+          //HTML에서 공백으로 인식하지 않도록 Unicode의 non-breaking space --> \u00A0 
+           listitem.innerText = "\u00A0"; 
+          list.appendChild(listitem);
+          listitem.appendChild(xbtn);   
+         }
+       
+       todo.value = "";
+       todo.focus();
+   }
+}
+</script>
+
+<style>
+   #regform{
+      padding: 20px 40px;
+      width : 70%;
+      margin : auto;
+      background-color : #FFC107;
+   }
+   
+   .content {
+      display : flex;
+   }
+   input {
+      width: 65%;
+      padding: 10px 20px;
+      border-radius : 6px 0 0 6px;
+      border-style : none;
+      font-size : 15px;
+      flex-grow : 1;   
+   }
+   #button {
+      padding: 10px 20px;
+      border-radius  : 0 6px 6px 0;
+      border-style : none;
+      background-color: #007bff;
+      color : white;
+      font-size : 15px;
+   }
+   
+   #todolist {
+         list-style: none;
+         font-size : 20px;
+         border-radius : 4px;
+         background-color : #FFF3CD;
+         padding-left : 0;
+         
+    }
+    /* ddd */
+    .btn-close {
+       position : absolute;
+       border-style : none;
+       background-color : transparent;
+       top : 0;
+       right : 0;
+       color : #7F7966;
+       cursor : pointer;
+    }
+    /* 버튼의 content를 X로 바꿈 --> :after , content : "\00d7" */
+    .btn-close:after{
+       display : inline-block;
+       content : "\00d7";
+       font-size : 36px;
+       padding : 0;
+    }
+    /* 버튼에 커서를 가져다 두면 버튼의 색을 바꿈 --> :hover */
+    .btn-close:hover {
+       color : black;      
+    }
+    /* 버튼을 클릭하면(focus)하면 버튼 디자인을 바꿈 --> :focus */
+    .btn-close:focus {
+       outline: none;
+      box-shadow:inset 0 0 0 3px #92b8b1;
+    }
+    
+    .list-item {
+       position : relative;
+       padding : 8px 8px;
+       padding-left : 15px;   
+       border-bottom-style: solid;
+       border-width : thin;
+       border-color : #E6DBB9;
+       overflow : hidden;
+    }
+    .list-item:hover{
+       background : #E6DBB9;
+    }
+    
+</style>
+</head>
+<body>
+ <div id = "regform">
+   <h2>My ToDo App</h2>
+   <hr>
+   <div class = "content" >
+      <input id = "item"  type = "text" placeholder = "할일을 입력하세요..">
+      <button id = "button"  onclick = "addItem()">할일 추가</button>
+   </div>
+   <hr>
+   <ul id="todolist"></ul>
+ </div>
+ 
+</body>
+</html>
